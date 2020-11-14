@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Emove</string>
+    <string name="action_sign_in">Ingresar</string>
+    <string name="downloading">Descargando...</string>
+    <string name="title_file_download">Emove App</string>
+    <string name="storage_access_required">Se requiere acceso al almacenamiento para descargar archivo.</string>
+    <string name="storage_permission_denied">aAcceso a almacenamiento denegado.</string>
+    <string name="ok">OK</string>
+</resources>
