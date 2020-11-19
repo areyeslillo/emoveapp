@@ -1,15 +1,13 @@
-package com.example.mediapipemultihandstrackingapp;
+package com.mutual.emove;
 
 import android.annotation.SuppressLint;
 import android.graphics.SurfaceTexture;
 import android.opengl.GLES20;
 import android.util.Log;
 
-import com.google.mediapipe.components.ExternalTextureConverter;
 import com.google.mediapipe.components.TextureFrameConsumer;
 import com.google.mediapipe.components.TextureFrameProducer;
 import com.google.mediapipe.framework.AppTextureFrame;
-import com.google.mediapipe.glutil.ExternalTextureRenderer;
 import com.google.mediapipe.glutil.GlThread;
 import com.google.mediapipe.glutil.ShaderUtil;
 

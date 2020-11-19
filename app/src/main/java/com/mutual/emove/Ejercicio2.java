@@ -61,7 +61,7 @@ public class Ejercicio2 extends AppCompatActivity {
     private FrameProcessor processor;
     // Converts the GL_TEXTURE_EXTERNAL_OES texture from Android camera into a regular texture to be
     // consumed by {@link FrameProcessor} and the underlying MediaPipe graph.
-    private ExternalTextureConverter converter;
+    private CustomExternalTextureConverter converter;
     // Handles camera access via the {@link CameraX} Jetpack support library.
     private CameraXPreviewHelper cameraHelper;
     private static TextView textEstado;
@@ -202,38 +202,36 @@ public class Ejercicio2 extends AppCompatActivity {
         }
 
 
-        Log.d(TAG, "el valor de X es :" + landmarks.getLandmark(0).getX());
-
-        float pseudoFixKeyPoint = landmarks.getLandmark(6).getX();
-        if (landmarks.getLandmark(7).getX() <= pseudoFixKeyPoint && landmarks.getLandmark(8).getX() <= pseudoFixKeyPoint)
+        float pseudoFixKeyPoint = landmarks.getLandmark(6).getY();
+        if (landmarks.getLandmark(7).getY() >= pseudoFixKeyPoint && landmarks.getLandmark(8).getY() >= pseudoFixKeyPoint)
         {
             firstFingerIsOpen = false;
         }else {
             firstFingerIsOpen = true;
         }
-        pseudoFixKeyPoint = landmarks.getLandmark(10).getX();
-        if (landmarks.getLandmark(11).getX() <= pseudoFixKeyPoint && landmarks.getLandmark(12).getX() <= pseudoFixKeyPoint)
+        pseudoFixKeyPoint = landmarks.getLandmark(10).getY();
+        if (landmarks.getLandmark(11).getY() >= pseudoFixKeyPoint && landmarks.getLandmark(12).getY() >= pseudoFixKeyPoint)
         {
             secondFingerIsOpen = false;
         }else {
             secondFingerIsOpen = true;
         }
-        pseudoFixKeyPoint = landmarks.getLandmark(14).getX();
-        if (landmarks.getLandmark(15).getX() <= pseudoFixKeyPoint && landmarks.getLandmark(16).getX() <= pseudoFixKeyPoint)
+        pseudoFixKeyPoint = landmarks.getLandmark(14).getY();
+        if (landmarks.getLandmark(15).getY() >= pseudoFixKeyPoint && landmarks.getLandmark(16).getY() >= pseudoFixKeyPoint)
         {
             thirdFingerIsOpen = false;
         }else {
             thirdFingerIsOpen = true;
         }
-        pseudoFixKeyPoint = landmarks.getLandmark(18).getX();
-        if (landmarks.getLandmark(19).getX() <= pseudoFixKeyPoint && landmarks.getLandmark(20).getX() <= pseudoFixKeyPoint)
+        pseudoFixKeyPoint = landmarks.getLandmark(18).getY();
+        if (landmarks.getLandmark(19).getY() >= pseudoFixKeyPoint && landmarks.getLandmark(20).getY() >= pseudoFixKeyPoint)
         {
             fourthFingerIsOpen = false;
         }else {
             fourthFingerIsOpen = true;
         }
-        pseudoFixKeyPoint = landmarks.getLandmark(2).getX();
-        if (landmarks.getLandmark(3).getX() <= pseudoFixKeyPoint && landmarks.getLandmark(4).getX() <= pseudoFixKeyPoint)
+        pseudoFixKeyPoint = landmarks.getLandmark(2).getY();
+        if (landmarks.getLandmark(3).getY() >= pseudoFixKeyPoint && landmarks.getLandmark(4).getY() >= pseudoFixKeyPoint)
         {
             thumbIsOpen = false;
         }else {
@@ -310,7 +308,7 @@ public class Ejercicio2 extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        converter = new ExternalTextureConverter(eglManager.getContext());
+        converter = new CustomExternalTextureConverter(eglManager.getContext(),2,270);
         converter.setFlipY(FLIP_FRAMES_VERTICALLY);
         converter.setConsumer(processor);
         if (PermissionHelper.cameraPermissionsGranted(this)) {
@@ -416,5 +414,40 @@ public class Ejercicio2 extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // super.onBackPressed();
+    }
+    //Pantalla Completa
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            hideSystemUI();
+        }
+    }
+
+    private void hideSystemUI() {
+        // Enables regular immersive mode.
+        // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
+        // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE
+                        // Set the content to appear under the system bars so that the
+                        // content doesn't resize when the system bars hide and show.
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        // Hide the nav bar and status bar
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    // Shows the system bars by removing all the flags
+    // except for the ones that make the content appear under the system bars.
+    private void showSystemUI() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 }

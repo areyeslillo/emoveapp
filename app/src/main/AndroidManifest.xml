@@ -26,7 +26,7 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".resumen"
             android:exported="true"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             tools:ignore="LockedOrientationActivity"></activity>
         <activity
             android:name=".Update"
@@ -46,22 +46,22 @@
         <activity
             android:name=".Ejercicio5"
             android:exported="true"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             tools:ignore="LockedOrientationActivity"></activity>
         <activity
             android:name=".Ejercicio4"
             android:exported="true"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".Ejercicio3"
             android:exported="true"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".Ejercicio2"
             android:exported="true"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".Ejercicio1"

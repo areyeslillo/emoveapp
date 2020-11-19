@@ -7,150 +7,153 @@
     android:background="#FFFFFF"
     tools:context=".Ejercicio1">
 
-    <Button
-        android:id="@+id/btn_progreso"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="16dp"
-        android:background="@drawable/elipse"
-        android:onClick="regresar"
-        android:orientation="vertical"
-        android:rotation="90"
-        android:textAllCaps="true"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/divider"
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="281dp"
+        android:layout_height="60dp"
+
+
+        android:text="Repeticiones"
+        android:textColor="#4CAF50"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.111"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.509" />
-
-
-    <pl.droidsonroids.gif.GifImageButton
-        android:id="@+id/imageViewEjercicio2"
-        android:layout_width="309dp"
-        android:layout_height="312dp"
-        android:background="#00FFFFFF"
-        android:orientation="vertical"
-        android:rotation="90"
-        android:scaleType="centerInside"
-        android:src="@drawable/ejercicio01"
-        app:layout_constraintBottom_toTopOf="@+id/divider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.446"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintVertical_bias="0.97"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textEstado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="536dp"
+        android:layout_marginEnd="160dp"
+
+
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:rotation="90"
         android:text="Estado"
         android:textAlignment="center"
         android:textColor="#4CAF50"
-        android:textSize="30sp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.166" />
+
+    <pl.droidsonroids.gif.GifImageButton
+        android:id="@+id/imageViewEjercicio1"
+        android:layout_width="309dp"
+        android:layout_height="312dp"
+
+
+        android:background="#00FFFFFF"
+        android:scaleType="centerInside"
+        android:src="@drawable/ejercicio01"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.912"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.241" />
+        app:layout_constraintVertical_bias="0.579" />
+
+    <Button
+        android:id="@+id/btn_progreso"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/elipse"
+
+
+        android:onClick="regresar"
+        android:textAllCaps="true"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.793"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.933" />
 
     <TextView
         android:id="@+id/textFinger"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:rotation="90"
+
+
         android:text="Prepárate …"
         android:textAlignment="center"
         android:textColor="#4CAF50"
-        android:textSize="27sp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.257"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.648" />
+        app:layout_constraintVertical_bias="0.078" />
 
     <FrameLayout
         android:id="@+id/preview_display_layout"
-        android:layout_width="456dp"
-        android:layout_height="387dp"
+        android:layout_width="602dp"
+        android:layout_height="451dp"
         android:layout_weight="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.342"
+        app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.942">
+        app:layout_constraintVertical_bias="0.617">
 
-        <TextView
-            android:id="@+id/no_camera_access_view"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
-            android:text="no_camera_access" />
 
     </FrameLayout>
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="176dp"
-        android:layout_height="149dp"
-        android:layout_marginBottom="4dp"
-        android:orientation="vertical"
-        android:rotation="90"
-        android:text="Repeticiones"
-        android:textColor="#4CAF50"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textRepeticiones"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical"
-        android:rotation="90"
+
+
         android:text="0/40"
         android:textAlignment="center"
         android:textColor="#BFBFBF"
-        android:textSize="25sp"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.941"
-        app:layout_constraintStart_toStartOf="@+id/btn_progreso"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.923" />
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="1dp" />
+        app:layout_constraintVertical_bias="0.97" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:rotation="90"
+
+
+        android:layout_marginEnd="48dp"
         android:text="TextView"
         android:textAlignment="center"
-        android:textColor="#009688"
-        android:textSize="30sp"
+        android:textColor="#4CAF50"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/preview_display_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.875"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.784" />
+        app:layout_constraintVertical_bias="0.059" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="45dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView3"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.061"
+        app:srcCompat="@drawable/grupo_2355b" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,9 +2,10 @@ package com.mutual.emove;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Matrix;
+import android.graphics.RectF;
 import android.media.MediaPlayer;
 import android.opengl.GLES20;
-import android.opengl.Matrix;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -101,7 +102,7 @@ public class Ejercicio1 extends AppCompatActivity {
     private FrameProcessor processor;
     // Converts the GL_TEXTURE_EXTERNAL_OES texture from Android camera into a regular texture to be
     // consumed by {@link FrameProcessor} and the underlying MediaPipe graph.
-    private ExternalTextureConverter converter;
+    private CustomExternalTextureConverter converter;
     // Handles camera access via the {@link CameraX} Jetpack support library.
     private CameraXPreviewHelper cameraHelper;
     private static TextView textEstado;
@@ -109,7 +110,7 @@ public class Ejercicio1 extends AppCompatActivity {
     private static TextView textRepeticiones;
     private static boolean estado = false;
     static Handler handler = new Handler();
-    private static final int TIEMPO = 500;
+    private static final int TIEMPO = 100;
 
     // finger states
     private static boolean thumbIsOpen = false;
@@ -248,37 +249,52 @@ public class Ejercicio1 extends AppCompatActivity {
             ++landmarkIndex;
         }
 
+        //dar 2 condiciones dedos extendidos o en postura
 
-        Log.d(TAG, "el valor de X es :" + landmarks.getLandmark(0).getX());
-//dar 2 condiciones dedos extendidos o en postura
-        if (landmarks.getLandmark(5).getX() <= landmarks.getLandmark(8).getX() && landmarks.getLandmark(8).getX() <= KeyPointTempfirstFingerIsOpen) {
-            firstFingerIsOpen = false;
-        } else if (landmarks.getLandmark(7).getX() <= landmarks.getLandmark(8).getX() && landmarks.getLandmark(5).getX() <= landmarks.getLandmark(6).getX()){
+        if  (landmarks.getLandmark(5).getX() >= landmarks.getLandmark(6).getX() && landmarks.getLandmark(7).getX() >= landmarks.getLandmark(8).getX()) {
             firstFingerIsOpen = true;
-            KeyPointTempfirstFingerIsOpen=landmarks.getLandmark(7).getX();
+            KeyPointTempfirstFingerIsOpen=landmarks.getLandmark(8).getY();
+            Log.d(TAG, "dedo 1 arriba");
+        } else {
+            firstFingerIsOpen = false;
+            Log.d(TAG, "dedo 1 abajo");
         }
-        if (landmarks.getLandmark(9).getX() <= landmarks.getLandmark(12).getX() && landmarks.getLandmark(12).getX() <= KeyPointTempsecondFingerIsOpen) {
-            secondFingerIsOpen = false;
-        } else if (landmarks.getLandmark(9).getX() <= landmarks.getLandmark(10).getX() && landmarks.getLandmark(11).getX() <= landmarks.getLandmark(12).getX()) {
+        if (landmarks.getLandmark(9).getY() >= landmarks.getLandmark(10).getY() && landmarks.getLandmark(11).getY() >= landmarks.getLandmark(12).getY()) {
             secondFingerIsOpen = true;
-            KeyPointTempsecondFingerIsOpen=landmarks.getLandmark(11).getX();
+            KeyPointTempsecondFingerIsOpen=landmarks.getLandmark(12).getY();
+            Log.d(TAG, "dedo 2 arriba");
+        } else {
+            secondFingerIsOpen = false;
+            Log.d(TAG, "dedo 2 Abajo");
         }
-        if (landmarks.getLandmark(13).getX() <= landmarks.getLandmark(16).getX() && landmarks.getLandmark(16).getX() <= KeyPointTempthirdFingerIsOpen) {
-            thirdFingerIsOpen = false;
-        } else if (landmarks.getLandmark(13).getX() <= landmarks.getLandmark(14).getX() && landmarks.getLandmark(15).getX() <= landmarks.getLandmark(16).getX()) {
+        if (landmarks.getLandmark(13).getY() >= landmarks.getLandmark(14).getY() && landmarks.getLandmark(15).getY() >= landmarks.getLandmark(16).getY()) {
             thirdFingerIsOpen = true;
-            KeyPointTempthirdFingerIsOpen=landmarks.getLandmark(15).getX();
+            KeyPointTempthirdFingerIsOpen=landmarks.getLandmark(16).getY();
+            Log.d(TAG, "dedo 3 Arriba");
+
+        } else {
+            thirdFingerIsOpen = false;
+            Log.d(TAG, "dedo 3 Abajo");
+
         }
-        if (landmarks.getLandmark(17).getX() <= landmarks.getLandmark(20).getX() && landmarks.getLandmark(20).getX() <= KeyPointTempfourthFingerIsOpen) {
-            fourthFingerIsOpen = false;
-        } else if (landmarks.getLandmark(17).getX() <= landmarks.getLandmark(18).getX() && landmarks.getLandmark(19).getX() <= landmarks.getLandmark(20).getX()) {
+        if (landmarks.getLandmark(17).getY() >= landmarks.getLandmark(18).getY() && landmarks.getLandmark(19).getY() >= landmarks.getLandmark(20).getY()){
             fourthFingerIsOpen = true;
-            KeyPointTempfourthFingerIsOpen=landmarks.getLandmark(19).getX();
+            KeyPointTempfourthFingerIsOpen=landmarks.getLandmark(20).getY();
+            Log.d(TAG, "dedo 4 Arriba");
+
+        } else  {
+            fourthFingerIsOpen = false;
+            Log.d(TAG, "dedo 4 Abajo");
+
         }
-        if (landmarks.getLandmark(2).getX() <= landmarks.getLandmark(3).getX() && landmarks.getLandmark(3).getX() <= landmarks.getLandmark(4).getX()) {
+        if (landmarks.getLandmark(2).getY() >= landmarks.getLandmark(3).getY() && landmarks.getLandmark(3).getY() >= landmarks.getLandmark(4).getY()) {
             thumbIsOpen = true;
+            Log.d(TAG, "dedo 5 Arriba");
+
         } else {
             thumbIsOpen = false;
+            Log.d(TAG, "dedo 5 Abajo");
+
         }
 
         if (vectorX == 0 && vectorY == 0 && estado == true) {
@@ -352,7 +368,9 @@ public class Ejercicio1 extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        converter = new ExternalTextureConverter(eglManager.getContext());
+//        converter = new ExternalTextureConverter(eglManager.getContext());
+        converter = new CustomExternalTextureConverter(eglManager.getContext(),2,270);
+
         converter.setFlipY(FLIP_FRAMES_VERTICALLY);
         converter.setConsumer(processor);
         if (PermissionHelper.cameraPermissionsGranted(this)) {
@@ -392,6 +410,7 @@ public class Ejercicio1 extends AppCompatActivity {
                             @Override
                             public void surfaceCreated(SurfaceHolder holder) {
                                 processor.getVideoSurfaceOutput().setSurface(holder.getSurface());
+
                             }
 
                             @Override
@@ -402,6 +421,7 @@ public class Ejercicio1 extends AppCompatActivity {
                                 // based on the size of the SurfaceView that contains the display.
                                 Size viewSize = new Size(width, height);
                                 Size displaySize = cameraHelper.computeDisplaySizeFromViewSize(viewSize);
+
                                 // Connect the converter to the camera-preview frames as its input (via
                                 // previewFrameTexture), and configure the output width and height as the computed
                                 // display size.
@@ -447,7 +467,7 @@ public class Ejercicio1 extends AppCompatActivity {
                     previewDisplayView.setVisibility(View.VISIBLE);
                 });
         cameraHelper.isCameraRotated();
-        cameraHelper.startCamera(this, CAMERA_FACING, /*surfaceTexture=*/ null);
+        cameraHelper.startCamera(this, CAMERA_FACING, /*surfaceTexture=*/ null, new Size(1920, 1200));
     }
 
     public void finalizarEjercicio() {
@@ -472,5 +492,40 @@ public class Ejercicio1 extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // super.onBackPressed();
+    }
+    //Pantalla Completa
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            hideSystemUI();
+        }
+    }
+
+    private void hideSystemUI() {
+        // Enables regular immersive mode.
+        // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
+        // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_IMMERSIVE
+                        // Set the content to appear under the system bars so that the
+                        // content doesn't resize when the system bars hide and show.
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        // Hide the nav bar and status bar
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN);
+    }
+
+    // Shows the system bars by removing all the flags
+    // except for the ones that make the content appear under the system bars.
+    private void showSystemUI() {
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 }

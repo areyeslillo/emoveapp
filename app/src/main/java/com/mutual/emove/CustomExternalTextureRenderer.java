@@ -1,4 +1,4 @@
-package com.example.mediapipemultihandstrackingapp;
+package com.mutual.emove;
 
 
 import android.graphics.SurfaceTexture;

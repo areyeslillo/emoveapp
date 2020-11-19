@@ -12,8 +12,8 @@ public class EmoveSingleton {
     private RequestQueue requestQueue;
     private static Context ctx;
 
-    private String url = "https://gestion.emoveapp.com";
-//    private String url = "http://192.168.0.12:8000";
+//    private String url = "https://gestion.emoveapp.com";
+    private String url = "http://192.168.0.10:8000";
 
     private EmoveSingleton(Context context) {
         ctx = context;

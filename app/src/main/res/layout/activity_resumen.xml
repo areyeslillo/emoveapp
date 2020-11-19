@@ -252,7 +252,7 @@
         android:layout_width="832dp"
         android:layout_height="110dp"
         android:max="28"
-        android:progress="@dia"
+        android:progress="12"
         android:progressTint="#8BC34A"
         tools:layout_editor_absoluteX="64dp"
         tools:layout_editor_absoluteY="361dp" />
